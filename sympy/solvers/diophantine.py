@@ -145,7 +145,7 @@ def diop_solve(eq, param=symbols("t", Integer=True)):
 
     elif eq_type == "general_pythagorean":
         return _diop_general_pythagorean(var, coeff, param)
-    
+
     elif eq_type == "univariable":
         return solve(eq)
 
@@ -222,8 +222,8 @@ def classify_diop(eq):
                 if term not in coeff.keys():
                     coeff[term] = Integer(0)
 
-    elif Poly(eq).degree() == 2 and len(var) >= 3:
-        
+    elif Poly(eq).degree() == 2 and len(var) > 3:
+
         for v in var:
             if v in coeff.keys():
                 diop_type = "inhomogeneous_general_quadratic"
@@ -234,7 +234,7 @@ def classify_diop(eq):
                 constant_term = True
             else:
                 constant_term = False
-            
+
             non_square_terms = False
             for v in var:
                 for u in var:
@@ -250,11 +250,11 @@ def classify_diop(eq):
                 diop_type = "homogeneous_general_quadratic"
             else:
                 coeff_sign_sum = 0
-            
+
                 for v in var:
                     if not isinstance(sqrt(abs(Integer(coeff[v**2]))), Integer):
                         break
-                    coeff_sign_sum = coeff_sign_sum + sign(coeff[v**2]) 
+                    coeff_sign_sum = coeff_sign_sum + sign(coeff[v**2])
                 else:
                     if abs(coeff_sign_sum) == len(var) - 2 and Integer(1) not in coeff.keys():
                         diop_type = "general_pythagorean"
@@ -265,7 +265,7 @@ def classify_diop(eq):
         return var, coeff, diop_type
     else:
         raise NotImplementedError("Still not implemented")
-        
+
 
 def diop_linear(eq, param=symbols("t", Integer=True)):
     """
@@ -1732,7 +1732,7 @@ def parametrize_ternary_quadratic(eq):
     """
     var, coeff, diop_type = classify_diop(eq)
 
-    if diop_type == "homohgeneous_ternary_quadratic":
+    if diop_type == "homogeneous_ternary_quadratic":
         x_0, y_0, z_0 = _diop_ternary_quadratic(var, coeff)
         return _parametrize_ternary_quadratic((x_0, y_0, z_0), var, coeff)
 
@@ -2186,46 +2186,46 @@ def diop_general_pythagorean(eq, param=symbols("m", Integer=True)):
     """
     """
     var, coeff, diop_type  = classify_diop(eq)
-    
+
     if diop_type == "general_pythagorean":
         return _diop_general_pythagorean(var, coeff, param)
-    
+
 
 def _diop_general_pythagorean(var, coeff, t):
-    
+
     if sign(coeff[var[0]**2]) + sign(coeff[var[1]**2]) + sign(coeff[var[2]**2]) < 0:
         for key in coeff.keys():
             coeff[key] = coeff[key] * -1
-    
+
     n = len(var)
     index = 0
-    
+
     for i, v in enumerate(var):
         if sign(coeff[v**2]) == -1:
             index = i
-            
+
     m = symbols(str(t) + "1:" + str(n), Integer=True)
     l = []
     ith = 0
-    
+
     for m_i in m:
         ith = ith + m_i**2
-    
+
     l.append(ith - 2*m[n - 2]**2)
-    
+
     for i in range(n - 2):
         l.append(2*m[i]*m[n-2])
-    
+
     sol = l[:index] + [ith] + l[index:]
-    
+
     lcm = 1
     for i, v in enumerate(var):
         if i == index or (index > 0 and i == 0) or (index == 0 and i == 1):
             lcm = ilcm(lcm, sqrt(abs(coeff[v**2])))
         else:
             lcm = ilcm(lcm, sqrt(coeff[v**2]) if sqrt(coeff[v**2]) % 2 else sqrt(coeff[v**2]) // 2)
-    
+
     for i, v in enumerate(var):
-        sol[i] = (lcm*sol[i]) / sqrt(abs(coeff[v**2])) 
-    
+        sol[i] = (lcm*sol[i]) / sqrt(abs(coeff[v**2]))
+
     return tuple(sol)
