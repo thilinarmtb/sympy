@@ -134,10 +134,10 @@ def diop_solve(eq, param=symbols("t", Integer=True)):
     var, coeff, eq_type = classify_diop(eq)
 
     if eq_type == "linear":
-        return diop_linear(var, coeff, param)
+        return _diop_linear(var, coeff, param)
 
     elif eq_type == "binary_quadratic":
-        return diop_quadratic(var, coeff, param)
+        return _diop_quadratic(var, coeff, param)
 
     elif eq_type == "homogeneous_ternary_quadratic":
         x_0, y_0, z_0 = _diop_ternary_quadratic(var, coeff)
