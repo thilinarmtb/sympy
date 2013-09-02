@@ -1,6 +1,6 @@
 from sympy.solvers.diophantine import (diop_solve, diop_DN, diop_bf_DN, length, transformation_to_DN, find_DN, equivalent,
     parametrize_ternary_quadratic, square_factor, pairwise_prime, diop_ternary_quadratic, diop_ternary_quadratic_normal, descent,
-    ldescent, classify_diop, diophantine, transformation_to_normal)
+    ldescent, classify_diop, diophantine, transformation_to_normal, diop_general_pythagorean)
 
 from sympy import symbols, Integer, Matrix, simplify, Subs, S, factorint, factor_list
 from sympy.utilities.pytest import XFAIL, slow
@@ -413,6 +413,18 @@ def test_diophantine():
     # No need to use methods for ternary quadratic equations.
     #assert check_solutions(y**2 - 7*x*y + 4*y*z)
 
+
+def test_diop_general_pythagorean():
+
+    from sympy.abc import a, b, c, d, e
+
+    assert check_solutions(a**2 + b**2 + c**2 - d**2)
+    assert check_solutions(a**2 + 4*b**2 + 4*c**2 - d**2)
+    assert check_solutions(9*a**2 + 4*b**2 + 4*c**2 - d**2)
+    assert check_solutions(9*a**2 + 4*b**2 - 25*d**2 + 4*c**2 )
+    assert check_solutions(9*a**2 - 16*d**2 + 4*b**2 + 4*c**2)
+    assert check_solutions(-e**2 + 9*a**2 + 4*b**2 + 4*c**2 + 25*d**2)
+    assert check_solutions(64*d**2 - 16*e**2 + 9*a**2 + b**2 + 169*c**2)
 
 def check_solutions(eq):
     """
