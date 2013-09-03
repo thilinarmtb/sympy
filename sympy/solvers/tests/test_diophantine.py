@@ -426,6 +426,7 @@ def test_diop_general_pythagorean():
     assert check_solutions(-e**2 + 9*a**2 + 4*b**2 + 4*c**2 + 25*d**2)
     assert check_solutions(64*d**2 - 16*e**2 + 9*a**2 + b**2 + 169*c**2)
 
+
 def check_solutions(eq):
     """
     Determines whether solutions returned by diophantine() satisfy the original
@@ -452,4 +453,4 @@ def check_solutions(eq):
             if simplify(simplify(Subs(subeq, var, solution).doit())) == 0:
                 okay = True
 
-    return okay
+    return okay 
