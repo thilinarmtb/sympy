@@ -440,4 +440,4 @@ def check_solutions(eq):
             if simplify(simplify(Subs(subeq, var, solution).doit())) == 0:
                 okay = True
 
-    return okay 
+    return okay
