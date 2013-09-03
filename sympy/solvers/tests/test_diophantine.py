@@ -1,6 +1,6 @@
 from sympy.solvers.diophantine import (diop_solve, diop_DN, diop_bf_DN, length, transformation_to_DN, find_DN, equivalent,
     parametrize_ternary_quadratic, square_factor, pairwise_prime, diop_ternary_quadratic, diop_ternary_quadratic_normal, descent,
-    ldescent, classify_diop, diophantine, transformation_to_normal, diop_general_pythagorean)
+    ldescent, classify_diop, diophantine, transformation_to_normal)
 
 from sympy import symbols, Integer, Matrix, simplify, Subs, S, factorint, factor_list
 from sympy.utilities.pytest import XFAIL, slow
