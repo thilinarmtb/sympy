@@ -2331,7 +2331,7 @@ def diop_general_sum_of_squares(eq, limit=1):
     Usage
     =====
 
-    ``general_sum_of_squares(eq, limit)`` : Here ``eq`` is an expression which is
+    ``general_sum_of_squares(eq, limit)``: Here ``eq`` is an expression which is
     assumed to be zero. Also, ``eq`` should be in the form,
     `x_{1}^2 + x_{2}^2 + . . . + x_{n}^2 - k = 0`. At most ``limit`` number of
     solutions are returned.
